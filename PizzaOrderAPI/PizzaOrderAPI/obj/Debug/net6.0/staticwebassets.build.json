@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "O1vw5iYkLWZma55WAASp82dQRtNI1kIW0BpL0ImudDc=",
+  "Source": "PizzaOrderAPI",
+  "BasePath": "_content/PizzaOrderAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
