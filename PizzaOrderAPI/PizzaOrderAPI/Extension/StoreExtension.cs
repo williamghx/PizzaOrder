@@ -1,6 +1,7 @@
 ﻿using PizzaOrderAPI.Models;
 using PizzaOrderAPI.Enums;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace PizzaOrderAPI.Extension
 {
@@ -41,6 +42,19 @@ namespace PizzaOrderAPI.Extension
 
             return q1 || q2 || q3 || q4 || q5;
         }
+
+        public static ModelStateDictionary Validate(this Store store, IEnumerable<Store> stores) 
+        { 
+            var modelState = new ModelStateDictionary();
+            if(stores.Any(s => s.Name == store.Name))
+                modelState.AddModelError("Name", "Already Exists");
+            if(stores.Any(s => s.Location.GetFullAddress() == store.Location.GetFullAddress()))
+                modelState.AddModelError("Location", "Already Exists");
+            if(stores.Any(s => s.Phone == store.Phone))
+                modelState.AddModelError("Phone", "Already Exists");
+            return modelState;
+        }
+
     }
 
     

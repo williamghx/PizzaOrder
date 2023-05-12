@@ -46,11 +46,17 @@ namespace PizzaOrderAPI.Data.Mock
         public Task<Store> AddStore(Store store)
         {
             store.Id = _stores.Select(st => st.Id).Max() + 1;
-            if(!_stores.Any(st => st.Location.ToString() == store.Location.ToString()))
+            var modelState = store.Validate(_stores);
+            if (modelState.IsValid)
+            {
                 store.Location.Id = _stores.Select(st => st.Location.Id).Max() + 1;
+                _stores.Add(store);
+            }
             else
-                store.Location = _stores.Select(st => st.Location).First(loc => loc.ToString() == store.Location.ToString());
-            _stores.Add(store);
+            {
+                throw new InvalidException("Store", modelState);
+            }
+            
             return Task.FromResult(store);
         }
 

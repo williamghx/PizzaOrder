@@ -180,7 +180,8 @@ namespace PizzaOrderAPI.Data.Mock
                     StoreId = m.StoreId,
                     PizzaId = m.PizzaId,
                     Store = await _storeRepository.GetStore(m.StoreId),
-                    Pizza = _pizzas.FirstOrDefault(p => p.Id == m.PizzaId)
+                    Pizza = _pizzas.FirstOrDefault(p => p.Id == m.PizzaId),
+                    Price = (decimal)m.Price
                 }
             );
             return await Task.WhenAll(menu);

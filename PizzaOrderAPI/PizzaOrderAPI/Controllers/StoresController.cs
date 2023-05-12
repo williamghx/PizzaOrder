@@ -81,8 +81,15 @@ namespace PizzaOrderAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Store>> PostStore(Store store)
         {
-            var newStore = await _storeRepository.AddStore(store);
-            return CreatedAtAction("Stores", new { id = newStore.Id }, newStore);
+            try
+            {
+                var newStore = await _storeRepository.AddStore(store);
+                return CreatedAtAction("GetStore", new { id = newStore.Id }, newStore);
+            }
+            catch(InvalidException ex)
+            {
+                return BadRequest(ex.ModelState);
+            }
         }
 
     }

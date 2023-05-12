@@ -22,13 +22,13 @@ namespace PizzaOrderAPI.Models
         public string StreetNo { get; set; }
         [MaxLength(50), Required]
         public string StreetName { get; set; }
-        [MaxLength(10), Required]
+        
         public StreetType StreetType { get; set; }
         [MaxLength(50), Required]
         public string Suburb { get; set; }
         [MaxLength(4), Required]
         public string Postcode { get; set; }
-        [MaxLength(3), Required]
+        
         public State State { get; set; }
     }
 

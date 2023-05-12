@@ -275,3 +275,7 @@ C:\Users\William\source\repos\PizzaOrder\PizzaOrderAPI\PizzaOrderAPI\bin\Debug\n
 C:\Users\William\source\repos\PizzaOrder\PizzaOrderAPI\PizzaOrderAPI\bin\Debug\net6.0\ServiceStack.Client.dll
 C:\Users\William\source\repos\PizzaOrder\PizzaOrderAPI\PizzaOrderAPI\bin\Debug\net6.0\ServiceStack.Interfaces.dll
 C:\Users\William\source\repos\PizzaOrder\PizzaOrderAPI\PizzaOrderAPI\bin\Debug\net6.0\ServiceStack.Text.dll
+C:\Users\William\source\repos\PizzaOrder\PizzaOrderAPI\PizzaOrderAPI\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\William\source\repos\PizzaOrder\PizzaOrderAPI\PizzaOrderAPI\bin\Debug\net6.0\Scrutor.dll
+C:\Users\William\source\repos\PizzaOrder\PizzaOrderAPI\PizzaOrderAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\William\source\repos\PizzaOrder\PizzaOrderAPI\PizzaOrderAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll

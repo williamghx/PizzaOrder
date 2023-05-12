@@ -1,4 +1,6 @@
-﻿namespace PizzaOrderAPI.Exceptions
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+
+namespace PizzaOrderAPI.Exceptions
 {
     public class CustomException: Exception
     {
@@ -13,6 +15,18 @@
         public NotFoundException(string resource): base($"The specified {resource} is not found")
         {
 
+        }
+    }
+
+    public class InvalidException: CustomException
+    {
+        private readonly ModelStateDictionary _modelState;
+
+        public ModelStateDictionary ModelState { get { return _modelState;} }
+
+        public InvalidException(string entity, ModelStateDictionary validationResult): base($"The ${entity} is invalid")
+        {
+            _modelState = validationResult;
         }
     }
 }
