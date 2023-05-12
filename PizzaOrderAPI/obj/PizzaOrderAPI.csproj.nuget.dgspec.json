@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI\\PizzaOrderAPI.csproj": {}
+    "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI\\PizzaOrderAPI.csproj": {
+    "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI\\PizzaOrderAPI.csproj",
+        "projectUniqueName": "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI.csproj",
         "projectName": "PizzaOrderAPI",
-        "projectPath": "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI\\PizzaOrderAPI.csproj",
+        "projectPath": "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI.csproj",
         "packagesPath": "C:\\Users\\William\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI\\obj\\",
+        "outputPath": "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "V/C3o5KwN7+XGXn5raEj+zzl4MNQhudzDFuMmIbiBa5PAwKBIC7O/FDztTue65RhdkwUGNmrWdxN3U+9Z9LmWg==",
+  "dgSpecHash": "PoQHRi8xv2uTpnFYDDDGpMSzYSFKxnLhJ0W3/NmXDSA9h2ZyFjxLE5wTeSso06lvi200UbKcYDRuErYO/H1NhQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI\\PizzaOrderAPI.csproj",
+  "projectFilePath": "C:\\Users\\William\\source\\repos\\PizzaOrder\\PizzaOrderAPI\\PizzaOrderAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\William\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\William\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
