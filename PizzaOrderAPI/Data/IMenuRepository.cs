@@ -8,6 +8,7 @@ namespace PizzaOrderAPI.Data
         Task<MenuItem?> GetMenuItem(int id);
         Task<MenuItem> AddMenuItem(MenuUpdate menuUpdate);
         Task<MenuItem> UpdateStore(int id, MenuUpdate menuUpdate);
+        Task<IEnumerable<Pizza>> GetAvailablePizzas(int storeId);
         Task<IEnumerable<Topping>> GetToppings();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PizzaOrderAPI.Data;
 using PizzaOrderAPI.Exceptions;
@@ -6,6 +7,7 @@ using PizzaOrderAPI.Models;
 
 namespace PizzaOrderAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MenuController : ControllerBase
@@ -37,6 +39,14 @@ namespace PizzaOrderAPI.Controllers
             return Ok(menuItem);
         }
 
+        //GET: api/Menu/AvailablePizzas/2
+        [HttpGet("AvailablePizzas/{storeId}")]
+        [Authorize(Roles ="GeneralManager, Manager")]
+        public async Task<ActionResult<IEnumerable<Pizza>>> GetAvailablePizzas(int storeId)
+        {
+            return Ok(await _menuRepository.GetAvailablePizzas(storeId));
+        }
+
         //GET: api/Menu/Toppings
         [HttpGet]
         [Route("Toppings")]
@@ -54,6 +64,7 @@ namespace PizzaOrderAPI.Controllers
 
         // PUT: api/Menu/5
         [HttpPut("{id}")]
+        [Authorize(Roles ="GeneralManager,Manager")]
         public async Task<ActionResult<MenuItem>> PutMenuItem(int id, MenuUpdate menuUpdate)
         {
             try
@@ -77,6 +88,7 @@ namespace PizzaOrderAPI.Controllers
 
         // POST API/Menu
         [HttpPost]
+        [Authorize(Roles = "GeneralManager,Manager")]
         public async Task<ActionResult<MenuItem>> PostMenuItem(MenuUpdate menuUpdate)
         {
             try

@@ -3,40 +3,58 @@ using PizzaOrderAPI.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
+using PizzaOrderAPI.Enums;
 
 namespace PizzaOrderAPI.Auth
 {
     public class JwtAuthenticationManager : IJwtAuthenticationManager
     {
         private readonly IUserRepository _userRepository;
-        private readonly string _key;
+        private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public JwtAuthenticationManager(IUserRepository userRepository, string key)
+        public JwtAuthenticationManager(IUserRepository userRepository, 
+                                        IConfiguration configuration,
+                                        IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
-            _key = key;
+            _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public string Authenticate(string username, string password)
+        public string? Authenticate(string username, string password)
         {
-            if(!_userRepository.LoginUser(username, password))
-            {
-                return null;
-            }
+            var user = _userRepository.LoginUser(username, password);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.ASCII.GetBytes(_key);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            if(user == null)
+                return null;
+
+            List<Claim> claims = new List<Claim>
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, username)
-                }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey),SecurityAlgorithms.HmacSha256)
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Role, user.Role?.ToString()??string.Empty)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds);
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
         }
+
+        public (string?, string?) GetUser()
+        {
+            return (
+                    _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Name),
+                    _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Role));
+        } 
     }
 }

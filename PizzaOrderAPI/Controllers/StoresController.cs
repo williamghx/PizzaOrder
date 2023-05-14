@@ -64,6 +64,7 @@ namespace PizzaOrderAPI.Controllers
 
         // PUT: api/Stores/5
         [HttpPut("{id}")]
+        [Authorize(Roles ="GeneralManager")]
         public async Task<ActionResult<Store>> PutStore(int id, StoreUpdate storeUpdate)
         {
             try
@@ -79,6 +80,7 @@ namespace PizzaOrderAPI.Controllers
 
         // POST: api/Stores
         [HttpPost]
+        [Authorize(Roles = "GeneralManager")]
         public async Task<ActionResult<Store>> PostStore(Store store)
         {
             try

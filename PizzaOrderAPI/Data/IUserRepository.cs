@@ -1,7 +1,10 @@
-﻿namespace PizzaOrderAPI.Data
+﻿using PizzaOrderAPI.Models;
+
+namespace PizzaOrderAPI.Data
 {
     public interface IUserRepository
     {
-        bool LoginUser(string username, string password);
+        User CreateUser(UserDTO newUser);
+        User? LoginUser(string username, string password);
     }
 }

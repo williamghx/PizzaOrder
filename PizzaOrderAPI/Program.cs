@@ -13,15 +13,11 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<PizzaOrderAPIContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PizzaOrderAPIContext") ?? throw new InvalidOperationException("Connection string 'PizzaOrderAPIContext' not found.")));
 
-// Add services to the container.
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+//builder.Services.AddDbContext<PizzaOrderAPIContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("PizzaOrderAPIContext") ?? throw new InvalidOperationException("Connection string 'PizzaOrderAPIContext' not found.")));
 
-var key = "This is a test key";
-
+//Add JWT Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -33,23 +29,21 @@ builder.Services.AddAuthentication(options =>
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
         ValidateIssuer = false,
         ValidateAudience = false
     };
 });
 
+
+//Inject Services
 builder.Services.AddSingleton<IUserRepository, MockUserRepository>();
-
-builder.Services.AddSingleton<IJwtAuthenticationManager>(sp =>
-{
-    var userRepository = sp.GetRequiredService<IUserRepository>();
-    return new JwtAuthenticationManager(userRepository, key);
-});
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IJwtAuthenticationManager, JwtAuthenticationManager>();
 builder.Services.AddSingleton<IStoreRepository, MockStoreRepository>();
 builder.Services.AddSingleton<IMenuRepository, MockMenuRepository>();
 
+//Add Cross-Origin Resource Sharing
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowSpecificOrigins",
@@ -59,12 +53,16 @@ builder.Services.AddCors(options =>
                       });
 });
 
+//Add Controllers
 builder.Services.AddControllers().AddJsonOptions(opts =>
 {
     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+//Add Endpoints
 builder.Services.AddEndpointsApiExplorer();
+
+//Add Swagger
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme { 

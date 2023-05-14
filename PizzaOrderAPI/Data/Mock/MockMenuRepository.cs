@@ -171,6 +171,11 @@ namespace PizzaOrderAPI.Data.Mock
             }
         }
 
+        public async Task<IEnumerable<Pizza>> GetAvailablePizzas(int storeId)
+        {
+            return await Task.FromResult(_pizzas.Where(p => !_menu.Any(m => m.StoreId == storeId && m.PizzaId == p.Id)));
+        }
+
         public async Task<IEnumerable<MenuItem>> GetMenuByStore(int storeId)
         {
             var menu = _menu.Where(m => m.StoreId == storeId).Select(async m => 
